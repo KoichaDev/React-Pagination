@@ -30,8 +30,10 @@ const PaginationTable = () => {
         canNextPage, // this is to use for disabling the button click to go next page if there are no more page that exist
         canPreviousPage, // same thing with this, but only for the previous button instead
         pageOptions, // get the length of the object that exist total on the page
+        setPageSize,  // Configuring to display page size number. Default comes with 10 from react table. We can fix it to display 50 for example
         state: {
             pageIndex,  // Displaying page index for incrementing by 1. It will observe where you are at in current pagination number 
+            pageSize,  // “pageSize” of the initial state.
         },
         prepareRow,
         gotoPage, // Used to indicate which page number we want specific to go at 
@@ -84,6 +86,20 @@ const PaginationTable = () => {
                         }}
                         style={{ width: '50px' }} />
                 </span>
+
+                <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                    {
+                        // The array is to show how many rows we want to see on the site
+                        [10, 25, 50].map(pageSize => {
+                            return <>
+                                <option key={pageSize} value={pageSize}>
+                                    Show {pageSize}
+                                </option>
+                            </>
+                        })
+                    }
+
+                </select>
 
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
                 <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>
