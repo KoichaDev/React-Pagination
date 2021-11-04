@@ -1,13 +1,14 @@
 import { useMemo } from 'react'
 import { useTable } from 'react-table';
 import MOCK_DATA from '../mock-data/MOCK_DATA.json';
-import { COLUMNS } from './columns'
+import { COLUMNS, GROUPED_COLUMNS } from './columns'
 import './table.css';
 
 const BasicTable = () => {
     // ! The useTable library also recommends to use React use the Memoization-hook (useMemo).
     // ! If we didn't use memoize the columns and data, React Table would think that we are receiving new data on every render 
     // ! and then attempt to recalculate it a lot of logic every single time. This will definently affect the component performance 
+    // const columns = useMemo(() => GROUPED_COLUMNS, []);
     const columns = useMemo(() => COLUMNS, []);
     const mockData = useMemo(() => MOCK_DATA, []);
 
@@ -21,7 +22,7 @@ const BasicTable = () => {
     const {
         getTableProps,
         getTableBodyProps,
-        headerGroups,
+        headerGroups, //This will give us access our grouped of header such as first name, last name, id etc.
         footerGroups,
         rows,
         prepareRow } = tableInstance
