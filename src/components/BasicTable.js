@@ -40,7 +40,7 @@ const BasicTable = () => {
                         <tr {...row.getRowProps()}>
                             {
                                 row.cells.map(rowCell => {
-                                    return <td {...rowCell.getCellProps()}>{rowCelly.render('Cell')}</td>
+                                    return <td {...rowCell.getCellProps()}>{rowCell.render('Cell')}</td>
                                 })
                             }
                         </tr>
