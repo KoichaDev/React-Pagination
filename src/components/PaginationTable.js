@@ -1,3 +1,4 @@
+import { ca } from 'date-fns/locale';
 import { useMemo } from 'react'
 import { useTable, usePagination } from 'react-table';
 import MOCK_DATA from '../mock-data/MOCK_DATA.json';
@@ -23,37 +24,47 @@ const PaginationTable = () => {
         getTableProps,
         getTableBodyProps,
         headerGroups, //This will give us access our grouped of header such as first name, last name, id etc.
-        page,
+        page, // Used for pagination
+        nextPage, // React tables gives us this function so we can navigate as "next page"
+        previousPage, // Same, but only "previous page"
+        canNextPage, // this is to use for disabling the button click to go next page if there are no more page that exist
+        canPreviousPage, // same thing with this, but only for the previous button instead
         prepareRow } = tableInstance
 
     return (
-        <table {...getTableProps()}>
-            <thead>
-                {headerGroups.map(headerGroup => {
-                    return <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => {
-                            // The 'Header' property is located on the columns.js file, so basically, id, first_name, last_name etc.
-                            return <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        })}
-                    </tr>
-
-                })}
-            </thead>
-            <tbody {...getTableBodyProps}>
-                {page.map(row => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {
-                                row.cells.map(rowCell => {
-                                    return <td {...rowCell.getCellProps()}>{rowCell.render('Cell')}</td>
-                                })
-                            }
+        <>
+            <table {...getTableProps()}>
+                <thead>
+                    {headerGroups.map(headerGroup => {
+                        return <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => {
+                                // The 'Header' property is located on the columns.js file, so basically, id, first_name, last_name etc.
+                                return <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                            })}
                         </tr>
-                    )
-                })}
-            </tbody> 
-        </table>
+
+                    })}
+                </thead>
+                <tbody {...getTableBodyProps}>
+                    {page.map(row => {
+                        prepareRow(row)
+                        return (
+                            <tr {...row.getRowProps()}>
+                                {
+                                    row.cells.map(rowCell => {
+                                        return <td {...rowCell.getCellProps()}>{rowCell.render('Cell')}</td>
+                                    })
+                                }
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+            <div>
+                <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>
+                <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
+            </div>
+        </>
     )
 }
 
