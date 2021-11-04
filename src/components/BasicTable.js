@@ -18,19 +18,24 @@ const BasicTable = () => {
     })
 
     // These are functions and arrays from the hook that comes from the useHook package given to us to enable easy table creation
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow } = tableInstance
 
     return (
-        <table {...getTableBodyProps()}>
+        <table {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => {
-                    return (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => {
-                                return <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                            })}
-                        </tr>
-                    )
+                    return <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => {
+                            // The 'Header' property is located on the columns.js file, so basically, id, first_name, last_name etc.
+                            return <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        })}
+                    </tr>
+
                 })}
             </thead>
             <tbody {...getTableBodyProps}>
