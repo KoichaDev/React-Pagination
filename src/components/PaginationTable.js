@@ -29,6 +29,10 @@ const PaginationTable = () => {
         previousPage, // Same, but only "previous page"
         canNextPage, // this is to use for disabling the button click to go next page if there are no more page that exist
         canPreviousPage, // same thing with this, but only for the previous button instead
+        pageOptions, // get the length of the object that exist total on the page
+        state: {
+            pageIndex,  // Displaying page index for incrementing by 1. It will observe where you are at in current pagination number 
+        },
         prepareRow } = tableInstance
 
     return (
@@ -61,6 +65,11 @@ const PaginationTable = () => {
                 </tbody>
             </table>
             <div>
+
+                <span>
+                    page{' '}
+                    <strong>{pageIndex + 1} of {pageOptions.length}</strong>
+                </span> {' '}
                 <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>
                 <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
             </div>
