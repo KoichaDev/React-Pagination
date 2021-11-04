@@ -15,17 +15,36 @@ const BasicTable = () => {
         columns: columns,
         data: mockData
     })
+
+    // These are functions and arrays from the hook that comes from the useHook package given to us to enable easy table creation
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance
+
     return (
-        <table>
+        <table {...getTableBodyProps()}>
             <thead>
-                <tr>
-                    <th></th>
-                </tr>
+                {headerGroups.map(headerGroup => {
+                    return (
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => {
+                                return <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                            })}
+                        </tr>
+                    )
+                })}
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                </tr>
+            <tbody {...getTableBodyProps}>
+                {rows.map(row => {
+                    prepareRow(row)
+                    return (
+                        <tr {...row.getRowProps()}>
+                            {
+                                row.cells.map(rowCell => {
+                                    return <td {...rowCell.getCellProps()}>{rowCelly.render('Cell')}</td>
+                                })
+                            }
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
