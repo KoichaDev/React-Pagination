@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import MOCK_DATA from '../mock-data/MOCK_DATA.json';
+import ColumnFilter from './ColumnFilter';
 import { COLUMNS, GROUPED_COLUMNS } from './columns'
 import GlobalFilter from './GlobalFilter';
 import './table.css';
@@ -13,10 +14,17 @@ const FilteringTable = () => {
     const columns = useMemo(() => COLUMNS, []);
     const mockData = useMemo(() => MOCK_DATA, []);
 
+    const defaultColumn = useMemo(() => {
+        return {
+            Filter: ColumnFilter
+        }
+    }, []);
+
     // This hook takes two properties to render the UI. 
     const tableInstance = useTable({
         columns: columns,
-        data: mockData
+        data: mockData,
+        defaultColumn: defaultColumn,
     },
         useFilters,
         useGlobalFilter)
