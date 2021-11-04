@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useTable } from 'react-table';
 import MOCK_DATA from '../mock-data/MOCK_DATA.json';
 import { COLUMNS } from './columns'
+import './table.css';
 
 const BasicTable = () => {
     // ! The useTable library also recommends to use React use the Memoization-hook (useMemo).
