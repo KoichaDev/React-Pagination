@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 // We want to map each column to a specific data value in the mock data
 // This will help React table identify what data goes under which column in each row.
 // ! One important thing: Even though we have data contains 8 column from the mock data. 
@@ -23,7 +25,8 @@ export const COLUMNS = [
     {
         Header: 'Date of Birth',
         Footer: 'Date of Birth',
-        accessor: 'date_of_birth'
+        accessor: 'date_of_birth',
+        Cell: ({value}) => format(new Date(value), 'dd/mm/yyyy')
     },
     {
         Header: 'Country',

@@ -37,7 +37,7 @@ const SortingTable = () => {
                             return <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                 {column.render('Header')}
                                 <span>
-                                    {column.isSorted ? '🔽' : '⬆️'}
+                                    {column.isSorted ? '🔽' : '🔼'}
                                 </span>
                             </th>
                         })}
